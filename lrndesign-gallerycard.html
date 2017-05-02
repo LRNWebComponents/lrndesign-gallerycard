@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<link rel="import" href="../lrn-icons/lrn-icons.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <!--
 `lrndesign-gallerycard`
 A LRN element
@@ -23,10 +24,30 @@ A LRN element
       is: 'lrndesign-gallerycard',
 
       properties: {
+        /**
+         * Image links
+         */
+        image: {
+          type: String,
+        },
         title: {
           type: String,
-          value: 'lrndesign-gallerycard',
+          value: 'Submission name',
         },
+        author: {
+          type: String,
+          value: 'Student',
+        },
+        link: {
+          type: String,
+        },
+        preview: {
+          type: String,
+        },
+        links: {
+          type: Object,
+          value: {},
+        }
       },
 
     });
