@@ -1,6 +1,16 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../lrn-icons/lrn-icons.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
+<link rel="import" href="../iron-iconset/iron-iconset.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/maps-icons.html">
+<link rel="import" href="../iron-icons/social-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../google-webfont-loader/google-webfont-loader.html">
+
+
 <!--
 `lrndesign-gallerycard`
 A LRN element
@@ -10,12 +20,278 @@ A LRN element
 
 <dom-module id="lrndesign-gallerycard">
   <template>
+    <google-webfont-loader fonts="Droid Sans,Droid Serif:700i,Anonymous Pro:700"></google-webfont-loader>
     <style>
       :host {
         display: block;
       }
+      paper-card {
+        border-radius: 4px;
+        margin:0.75rem;
+        width:16rem;
+      }
+      .paper-card-responsive {
+        min-width:200px;
+        max-width:20rem;
+        width:auto;
+      }
+      .title {
+        font-size: 0.9rem;
+        padding:0.25rem 0;
+        margin:0.5rem 0 0 0;
+      }
+      .author {
+        font-size: 0.75rem;
+        margin:0;
+        padding:0.25rem 0;
+      }
+      .divider {
+        height:1px;
+        width:100%;
+        background:#efefef;
+      }
+      p.text-submission {
+        padding:1.5rem 2.5rem 2.5rem 2.5rem;
+        margin:0;
+      }
+      .text-submission,
+      .text-submission:link,
+      .text-submission:visited,
+      .text-submission:active {
+        font-family: 'Droid Serif', cursive;
+        font-size: 1rem;
+        font-style: italic;
+        color:#888;
+        text-decoration: none;
+      }
+      .text-submission:hover  {
+        color:#000;
+      }
+      .link-submission,
+      .link-submission:link,
+      .link-submission:visited,
+      .link-submission:active {
+        font-family: 'Anonymous Pro', monospace;
+        font-size: 2rem;
+        color:#888;
+        text-decoration: none;
+      }
+      .link-submission:hover  {
+        color:#000;
+      }
+      .file-submission,
+      .file-submission:link,
+      .file-submission:visited,
+      .file-submission:active {
+        color:#888;
+        text-decoration: none;
+      }
+      .file-submission:hover  {
+        color:#000;
+      }
+      .image-submission,
+      .image-submission:link,
+      .image-submission:visited,
+      .image-submission:active {
+        color:#888;
+        text-decoration: none;
+      }
+      .image-submission:hover  {
+        color:#000;
+      }
+      a.image-set-submission {
+        display: flex;
+        align-items: center;
+        flex-flow: row wrap;
+        align-content: flex-start;
+      }
+      .image-set-submission,
+      .image-set-submission:link,
+      .image-set-submission:visited,
+      .image-set-submission:active {
+        color:#888;
+        text-decoration: none;
+      }
+      .image-set-submission:hover  {
+        color:#000;
+      }
+       .text-right{
+        text-align:right;
+       }
+       .text-center{
+        text-align:center;
+       }
+       .card-actions {
+        background-color: #f5f5f5;
+        border-radius:0 0 4px 4px;
+       }
+       
+       .card-actions p {
+        font-size: 0.85rem;
+        margin: 0.25rem 0;
+        color:#616161;
+       }
+       .card-control-height {
+        height: 16rem;
+       }
+       .card-control-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+       }
+       [elevation="0"] {
+        border: solid 1px #EEEEEE;
+       }
+      .truncate {
+        display: block; /* Fallback for non-webkit */
+        display: -webkit-box;
+        max-width: 400px;
+        height: 64px; /* Fallback for non-webkit */
+        margin: 0 auto;
+        line-height: 1.4;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      
     </style>
-    <h2>[[title]]</h2>
+    <style is="custom-style">
+        .big {
+          --iron-icon-height: 100%;
+          --iron-icon-width: 100%;
+          max-width: 4em;
+          max-height: 4em;
+        }
+      </style>
+      <style is="custom-style">
+        .image {
+          --iron-image-width: 100%;
+          --iron-image-width: 100%;
+        }
+      </style>
+      <style is="custom-style">
+        .image-quad {
+          --iron-image-height: auto;
+          --iron-image-width: 96%;
+          flex-basis:50%;
+          /*width: 100%; 
+          height: auto;*/
+
+        }
+        iron-image.image-quad img {
+          margin: 2%;
+        }
+       /* header div { 
+          -webkit-box-flex: auto;
+          -ms-flex: auto;
+          flex: auto; 
+          width: 200px; 
+          margin: .5vw; 
+        }
+        header div img { */
+           
+}
+      </style>
+    <!-- ----- Text Submission -----  -->
+    <p>Added border for elevation="0" paper-card so you can use the entire elevation range without losing the edge.</p>
+    <!--  -->
+    <paper-card elevation="0">
+      <div class="card-content">
+      <div class="card-control-height card-control-center">
+       <p class="text-submission">
+        <a href="#" class="text-submission truncate">[[text]]</a>
+        </p>
+      </div>
+      <div class=divider></div>
+      <h2 class="title">[[title]]</h2>
+      <p class="author">By [[author]]<p>
+      </div>
+      <div class="card-actions">
+        <p class="text-right">Comments: 72</p>
+      </div>
+    </paper-card>
+
+    <paper-card>
+      <div class="card-content">
+      <div class="card-control-height card-control-center">
+       <p class="text-submission">
+        <a href="#" class="text-submission truncate">[[text]]</a>
+        </p>
+      </div>
+      <div class=divider></div>
+      <h2 class="title">[[title]]</h2>
+      <p class="author">By [[author]]<p>
+      </div>
+      <div class="card-actions">
+        <p class="text-right">Comments: 72</p>
+      </div>
+    </paper-card>
+    <!-- ----- Link Submission -----  -->
+    <paper-card>
+      <div class="card-content">
+      <div class="card-control-height card-control-center">
+       <p class="link-submission text-center">
+        <a href="#" class="link-submission">&lt;/link&gt;</a>
+        </p>
+      </div>
+      <div class=divider></div>
+      <h2 class="title">[[title]]</h2>
+      <p class="author">By [[author]]<p>
+      </div>
+      <div class="card-actions">
+        <p class="text-right">Comments: 72</p>
+      </div>
+    </paper-card>
+    <!-- ----- File Submission -----  -->
+    <paper-card>
+      <div class="card-content">
+      <div class="card-control-height card-control-center">
+       <p class="file-submission text-center">
+        <a href="#" class="file-submission truncate"><iron-icon class="big" icon="file-download"></iron-icon></a>
+        </p>
+        </div>
+      <div class=divider></div>
+      <h2 class="title">[[title]]</h2>
+      <p class="author">By [[author]]<p>
+      </div>
+      <div class="card-actions">
+        <p class="text-right">Comments: 72</p>
+      </div>
+    </paper-card>
+    <!-- ----- Image Submission -----  -->
+    <paper-card>
+      <div class="card-content">
+      <div class="card-control-height">
+        <a href="#" class="image-submission"><iron-image class="image" src="[[image]]"></iron-image></a>
+      </div>
+      <h2 class="title">[[title]]</h2>
+      <p class="author">By [[author]]<p>
+      </div>
+      <div class="card-actions">
+        <p class="text-right">Comments: 72</p>
+      </div>
+    </paper-card>
+
+    <paper-card>
+      <div class="card-content">
+      <div class="card-control-height">
+        <a href="#" class="image-set-submission">
+          <iron-image class="image-quad" src="[[image]]"></iron-image>
+          <iron-image class="image-quad" src="[[image]]"></iron-image>
+          <iron-image class="image-quad" src="[[image]]"></iron-image>
+          <iron-image class="image-quad" src="[[image]]"></iron-image>
+        </a>
+      </div>
+      <h2 class="title">[[title]]</h2>
+      <p class="author">By [[author]]<p>
+      </div>
+      <div class="card-actions">
+        <p class="text-right">Comments: 72</p>
+      </div>
+    </paper-card>
+    
   </template>
 
   <script>
@@ -29,14 +305,19 @@ A LRN element
          */
         image: {
           type: String,
+          value: 'https://unsplash.it/1200',
+        },
+        image_set: {
+          type: Object,
+          value: ['https://unsplash.it/900x600', 'https://unsplash.it/780x200', 'https://unsplash.it/380x600'],
         },
         title: {
           type: String,
-          value: 'Submission name',
+          value: 'Project Title',
         },
         author: {
           type: String,
-          value: 'Student',
+          value: 'Bill Billerson',
         },
         link: {
           type: String,
@@ -47,9 +328,12 @@ A LRN element
         links: {
           type: Object,
           value: {},
+        },
+        text: {
+          type: String,
+          value: "How might we eat the cheeses of Switzerland, which are sometimes known as Swiss cheese? I must ask you a longer question. How many holes are typical of such a cheese?",
         }
       },
-
     });
   </script>
 </dom-module>
