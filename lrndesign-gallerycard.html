@@ -132,7 +132,7 @@ A LRN element
         color:#616161;
        }
        .card-control-height {
-        height: 16rem;
+        height: 15rem;
        }
        .card-control-center {
         align-items: center;
@@ -174,15 +174,15 @@ A LRN element
       <style is="custom-style">
         .image-quad {
           --iron-image-height: auto;
-          --iron-image-width: 96%;
+          --iron-image-width: 100%;
           flex-basis:50%;
           /*width: 100%; 
           height: auto;*/
 
         }
-        iron-image.image-quad img {
+        /*img#img.iron-image {
           margin: 2%;
-        }
+        }*/
        /* header div { 
           -webkit-box-flex: auto;
           -ms-flex: auto;
@@ -266,6 +266,7 @@ A LRN element
       <div class="card-control-height">
         <a href="#" class="image-submission"><iron-image class="image" src="[[image]]"></iron-image></a>
       </div>
+      <div class=divider></div>
       <h2 class="title">[[title]]</h2>
       <p class="author">By [[author]]<p>
       </div>
@@ -284,6 +285,7 @@ A LRN element
           <iron-image class="image-quad" src="[[image]]"></iron-image>
         </a>
       </div>
+      <div class=divider></div>
       <h2 class="title">[[title]]</h2>
       <p class="author">By [[author]]<p>
       </div>
