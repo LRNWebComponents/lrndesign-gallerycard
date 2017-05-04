@@ -9,11 +9,12 @@
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../google-webfont-loader/google-webfont-loader.html">
-
+<link rel="import" href="../lrndesign-dialog/lrndesign-dialog.html">
 
 <!--
 `lrndesign-gallerycard`
-A LRN element
+A LRN element for presenting a gallery of items as cards
+that can pop up to display more info
 
 @demo demo/index.html
 -->
@@ -54,10 +55,7 @@ A LRN element
         padding:1.5rem 0rem 2.5rem 0rem;
         margin:0;
       }
-      .text-submission,
-      .text-submission:link,
-      .text-submission:visited,
-      .text-submission:active {
+      .text-submission {
         font-family: 'Droid Serif', cursive;
         font-size: 1rem;
         font-style: italic;
@@ -72,10 +70,7 @@ A LRN element
         width: 100%;
         margin: 0;
       }
-      .link-submission,
-      .link-submission:link,
-      .link-submission:visited,
-      .link-submission:active {
+      .link-submission {
         font-family: 'Anonymous Pro', monospace;
         font-size: 2rem;
         color:#888;
@@ -90,10 +85,7 @@ A LRN element
         width: 100%;
         margin: 0;
       }
-      .file-submission,
-      .file-submission:link,
-      .file-submission:visited,
-      .file-submission:active {
+      .file-submission {
         color:#888;
         text-decoration: none;
         width:100%;
@@ -102,26 +94,18 @@ A LRN element
       .file-submission:hover  {
         color:#000;
       }
-      .image-submission,
-      .image-submission:link,
-      .image-submission:visited,
-      .image-submission:active {
+      .image-submission {
         color:#888;
         text-decoration: none;
       }
       .image-submission:hover  {
         color:#000;
       }
-      a.image-set-submission {
+      .image-set-submission {
         display: flex;
         align-items: center;
         flex-flow: row wrap;
         align-content: flex-start;
-      }
-      .image-set-submission,
-      .image-set-submission:link,
-      .image-set-submission:visited,
-      .image-set-submission:active {
         color:#888;
         text-decoration: none;
       }
@@ -138,7 +122,6 @@ A LRN element
         background-color: #f5f5f5;
         border-radius:0 0 4px 4px;
        }
-       
        .card-actions p {
         font-size: 0.85rem;
         margin: 0.25rem 0;
@@ -167,8 +150,6 @@ A LRN element
         overflow: hidden;
         text-overflow: ellipsis;
       }
-
-      
     </style>
     <style is="custom-style">
         .big {
@@ -204,151 +185,235 @@ A LRN element
           margin: .5vw; 
         }
         header div img { */
-           
 }
       </style>
-    <!-- ----- Text Submission -----  -->
-    <p>Added border for elevation="0" paper-card so you can use the entire elevation range without losing the edge.</p>
-    <!--  -->
-    <paper-card elevation="0">
-      <div class="card-content">
-      <div class="card-control-height card-control-center">
-       <p class="text-submission">
-        <a href="#" class="text-submission truncate">[[text]]</a>
-        </p>
-      </div>
-      <div class=divider></div>
-      <h2 class="title">[[title]]</h2>
-      <p class="author">By [[author]]<p>
-      </div>
-      <div class="card-actions">
-        <p class="text-right">Comments: 72</p>
-      </div>
-    </paper-card>
-
-    <paper-card>
-      <div class="card-content">
-      <div class="card-control-height card-control-center">
-       <p class="text-submission">
-        <a href="#" class="text-submission truncate">[[text]]</a>
-        </p>
-      </div>
-      <div class=divider></div>
-      <h2 class="title">[[title]]</h2>
-      <p class="author">By [[author]]<p>
-      </div>
-      <div class="card-actions">
-        <p class="text-right">Comments: 72</p>
-      </div>
-    </paper-card>
-    <!-- ----- Link Submission -----  -->
-    <paper-card>
-      <div class="card-content">
-      <div class="card-control-height card-control-center">
-       <p class="link-submission text-center">
-        <a href="#" class="link-submission">&lt;/link&gt;</a>
-        </p>
-      </div>
-      <div class=divider></div>
-      <h2 class="title">[[title]]</h2>
-      <p class="author">By [[author]]<p>
-      </div>
-      <div class="card-actions">
-        <p class="text-right">Comments: 72</p>
-      </div>
-    </paper-card>
-    <!-- ----- File Submission -----  -->
-    <paper-card>
-      <div class="card-content">
-      <div class="card-control-height card-control-center">
-       <p class="file-submission text-center">
-        <a href="#" class="file-submission truncate"><iron-icon class="big" icon="file-download"></iron-icon></a>
-        </p>
+      <paper-card elevation="[[elevation]]">
+        <div class="card-content">
+          <div class="card-control-height card-control-center">
+          <!-- ----- Images Submission -----  -->
+          <template is="dom-if" if="{{_previewType(images)}}">
+          <div class="image-set-submission">
+            <template is="dom-repeat" items="[[_previewType(images)]]">
+            <iron-image class="image-quad" src="[[item.value]]"></iron-image>
+            </template>
+          </div>
+          </template>
+          <!-- ----- Image Submission -----  -->
+          <template is="dom-if" if="{{_previewType(image)}}">
+          <div class="image-submission">
+            <iron-image class="image" src="[[image]]"></iron-image>
+          </div>
+          </template>
+          <!-- ----- File Submission -----  -->
+          <template is="dom-if" if="{{_previewType(file)}}">
+          <p class="file-submission text-center">
+            <div class="file-submission truncate">
+              <iron-icon class="big" icon="file-download"></iron-icon>
+            </div>
+          </p>
+          </template>
+          <!-- ----- Link Submission -----  -->
+          <template is="dom-if" if="{{_previewType(link)}}">
+          <p class="link-submission text-center">
+            <div class="link-submission">&lt;/link&gt;</div>
+          </p>
+          </template>
+          <!-- ----- Text Submission -----  -->
+          <template is="dom-if" if="{{_previewType(text)}}">
+            <p class="text-submission">
+              <div class="text-submission truncate">[[text]]</div>
+            </p>
+          </template>
+          </div>
+          <div class=divider></div>
+          <h2 class="title">[[title]]</h2>
+          <p class="author">By [[author]]<p>
         </div>
-      <div class=divider></div>
-      <h2 class="title">[[title]]</h2>
-      <p class="author">By [[author]]<p>
-      </div>
-      <div class="card-actions">
-        <p class="text-right">Comments: 72</p>
-      </div>
-    </paper-card>
-    <!-- ----- Image Submission -----  -->
-    <paper-card>
-      <div class="card-content">
-      <div class="card-control-height">
-        <a href="#" class="image-submission"><iron-image class="image" src="[[image]]"></iron-image></a>
-      </div>
-      <div class=divider></div>
-      <h2 class="title">[[title]]</h2>
-      <p class="author">By [[author]]<p>
-      </div>
-      <div class="card-actions">
-        <p class="text-right">Comments: 72</p>
-      </div>
-    </paper-card>
-
-    <paper-card>
-      <div class="card-content">
-      <div class="card-control-height">
-        <a href="#" class="image-set-submission">
-          <iron-image class="image-quad" src="[[image]]"></iron-image>
-          <iron-image class="image-quad" src="[[image]]"></iron-image>
-          <iron-image class="image-quad" src="[[image]]"></iron-image>
-          <iron-image class="image-quad" src="[[image]]"></iron-image>
-        </a>
-      </div>
-      <div class=divider></div>
-      <h2 class="title">[[title]]</h2>
-      <p class="author">By [[author]]<p>
-      </div>
-      <div class="card-actions">
-        <p class="text-right">Comments: 72</p>
-      </div>
-    </paper-card>
-    
+        <div class="card-actions">
+          <p class="text-right">Comments: [[comments]]</p>
+        </div>
+      </paper-card>
+      <lrndesign-dialog id="dialog">
+        <div id="dialogBody">
+          <h2>{{title}}</h2>
+          <template is="dom-repeat" items="{{submissions}}" as="submission">
+          <h3>{{submission.title}}</h3>
+          </template>
+        </div>
+      </lrndesign-dialog>
+      <iron-ajax
+        params="{}"
+        id="ajaxRequest"
+        url="{{url}}"
+        handle-as="json"
+        last-reponse="{{submissionsResponse}}"
+        on-response="_handleReturnedData"></iron-ajax>
   </template>
 
   <script>
     Polymer({
 
       is: 'lrndesign-gallerycard',
-
+       listeners: {
+        'mouseenter': '_mouseEnter',
+        'mouseleave': '_mouseLeave',
+        'click': '_triggerDialog',
+      },
       properties: {
         /**
-         * Image links
+         * Image src
          */
         image: {
           type: String,
-          value: 'https://unsplash.it/1200',
+          reflectToAttribute: true,
+          notify: true,
         },
-        image_set: {
+        /**
+         * Array of src to images.
+         */
+        images: {
           type: Object,
-          value: ['https://unsplash.it/900x600', 'https://unsplash.it/780x200', 'https://unsplash.it/380x600'],
+          reflectToAttribute: true,
+          notify: true,
         },
-        title: {
+        /**
+         * Text from the submission
+         */
+        file: {
           type: String,
-          value: 'Project Title',
+          reflectToAttribute: true,
+          notify: true,
         },
-        author: {
-          type: String,
-          value: 'Bill Billerson',
-        },
-        link: {
-          type: String,
-        },
-        preview: {
-          type: String,
-        },
-        links: {
-          type: Object,
-          value: {},
-        },
+        /**
+         * Text from the submission
+         */
         text: {
           type: String,
-          value: "How might we eat the cheeses of Switzerland, which are sometimes known as Swiss cheese? I must ask you a longer question. How many holes are typical of such a cheese?",
-        }
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * File from the submission
+         */
+        file: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * Link from the submission
+         */
+        link: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * Title of the gallery item
+         */
+        title: {
+          type: String,
+          value: 'Project',
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * Gallery creator
+         */
+        author: {
+          type: String,
+          value: 'Author',
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * Visual elevation of the item off the UI via paper element height
+         */
+        elevation: {
+          type: Number,
+          value: 0,
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * URL to the gallery itself
+         */
+        url: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * Number of comments this has
+         */
+        comments: {
+          type: Number,
+          value: 0,
+          reflectToAttribute: true,
+          notify: true,
+        },
+        /**
+         * Found, internal
+         */
+        foundTypeMatch: {
+          type: Boolean,
+          value: false,
+        },
+        /**
+         * Property to hold data returned from an endpoint
+         */
+        submissionsResponse: {
+          type: Object,
+        },
+        submissions: {
+          type: Array
+        },
       },
+      _handleReturnedData: function(e) {
+        console.log(this.submissionsResponse);
+        var arrayIt = this._toArray(this.submissionsResponse.data);
+        this.submissions = arrayIt;
+        console.log(this.submissions);
+      },
+      _mouseEnter: function(e) {
+        this.elevation += 1;
+      },
+      _mouseLeave: function(e) {
+        this.elevation -= 1;
+      },
+      _triggerDialog: function(e) {
+        let root = this;
+        // support remote url loading
+        if (typeof this.url !== "undefined") {
+          root.$$('#ajaxRequest').generateRequest();
+        }
+        this.$$('#dialog').toggle();
+      },
+      /**
+       * Figure out what type of preview case to match for rendering
+       * @param  mixed the item we are testing for to have a value of any kind
+       * @return boolean     If it is populated or not
+       */
+      _previewType: function(data) {
+        // make sure that if we already match a case we don't keep going
+        if (this.foundTypeMatch) {
+          return false;
+        }
+        // if the item is defined then we should load that part of the template
+        if (typeof data !== 'undefined') {
+          this.foundTypeMatch = true;
+          return true;
+        }
+        return false;
+      },
+      _toArray: function(obj) {
+        return Object.keys(obj).map(function(key) {
+          return {
+              name: key,
+              value: obj[key]
+          };
+        });
+      }
     });
   </script>
 </dom-module>
