@@ -9,7 +9,8 @@
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../google-webfont-loader/google-webfont-loader.html">
-<link rel="import" href="../lrndesign-dialog/lrndesign-dialog.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
 
 <!--
 `lrndesign-gallerycard`
@@ -233,13 +234,11 @@ that can pop up to display more info
           <p class="text-right">Comments: [[comments]]</p>
         </div>
       </paper-card>
-      <lrndesign-dialog id="dialog">
-        <div id="dialogBody">
-          <h2>{{title}}</h2>
-          <div id="dialogResponse">
-          </div>
-        </div>
-      </lrndesign-dialog>
+      <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+        <h2>{{title}}</h2>
+        <paper-dialog-scrollable id="dialogResponse">
+        </paper-dialog-scrollable>
+      </paper-dialog>
       <iron-ajax
         params="{}"
         id="ajaxRequest"
@@ -361,7 +360,7 @@ that can pop up to display more info
          * Property to hold data returned from an endpoint
          */
         itemResponse: {
-          type: Object
+          type: Object,
         }
       },
       /**
