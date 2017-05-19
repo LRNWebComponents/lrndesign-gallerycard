@@ -194,50 +194,52 @@ that can pop up to display more info
 }
       </style>
       <paper-card elevation="[[elevation]]">
-        <div class="card-content">
-          <div class="card-control-height card-control-center">
-          <!-- ----- Images Submission -----  -->
-          <template is="dom-if" if="{{_previewType(images)}}">
-          <div class="image-set-submission">
-            <template is="dom-repeat" items="[[_previewType(images)]]">
-            <iron-image class="image-quad" src="[[item.value]]"></iron-image>
-            </template>
-          </div>
-          </template>
-          <!-- ----- Image Submission -----  -->
-          <template is="dom-if" if="{{_previewType(image)}}">
-          <div class="image-submission">
-            <iron-image class="image" src="[[image]]"></iron-image>
-          </div>
-          </template>
-          <!-- ----- File Submission -----  -->
-          <template is="dom-if" if="{{_previewType(file)}}">
-          <p class="file-submission text-center">
-            <div class="file-submission truncate">
-              <iron-icon class="big" icon="file-download"></iron-icon>
+        <paper-button>
+          <div class="card-content">
+            <div class="card-control-height card-control-center">
+            <!-- ----- Images Submission -----  -->
+            <template is="dom-if" if="{{_previewType(images)}}">
+            <div class="image-set-submission">
+              <template is="dom-repeat" items="[[_previewType(images)]]">
+              <iron-image class="image-quad" src="[[item.value]]"></iron-image>
+              </template>
             </div>
-          </p>
-          </template>
-          <!-- ----- Link Submission -----  -->
-          <template is="dom-if" if="{{_previewType(link)}}">
-          <p class="link-submission text-center">
-            <div class="link-submission">&lt;/link&gt;</div>
-          </p>
-          </template>
-          <!-- ----- Text Submission -----  -->
-          <template is="dom-if" if="{{_previewType(text)}}">
-            <p class="text-submission">
-              <div class="text-submission truncate">[[text]]</div>
+            </template>
+            <!-- ----- Image Submission -----  -->
+            <template is="dom-if" if="{{_previewType(image)}}">
+            <div class="image-submission">
+              <iron-image class="image" src="[[image]]"></iron-image>
+            </div>
+            </template>
+            <!-- ----- File Submission -----  -->
+            <template is="dom-if" if="{{_previewType(file)}}">
+            <p class="file-submission text-center">
+              <div class="file-submission truncate">
+                <iron-icon class="big" icon="file-download"></iron-icon>
+              </div>
             </p>
-          </template>
+            </template>
+            <!-- ----- Link Submission -----  -->
+            <template is="dom-if" if="{{_previewType(link)}}">
+            <p class="link-submission text-center">
+              <div class="link-submission">&lt;/link&gt;</div>
+            </p>
+            </template>
+            <!-- ----- Text Submission -----  -->
+            <template is="dom-if" if="{{_previewType(text)}}">
+              <p class="text-submission">
+                <div class="text-submission truncate">[[text]]</div>
+              </p>
+            </template>
+            </div>
+            <div class=divider></div>
+            <h2 class="title">[[title]]</h2>
+            <p class="author">By [[author]]<p>
           </div>
-          <div class=divider></div>
-          <h2 class="title">[[title]]</h2>
-          <p class="author">By [[author]]<p>
-        </div>
-        <div class="card-actions">
-          <p class="text-right">Comments: [[comments]]</p>
-        </div>
+          <div class="card-actions">
+            <p class="text-right">Comments: [[comments]]</p>
+          </div>
+        </paper-button>
       </paper-card>
       <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
         <h2>{{title}}</h2>
