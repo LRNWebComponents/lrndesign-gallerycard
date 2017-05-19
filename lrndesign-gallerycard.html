@@ -245,7 +245,6 @@ that can pop up to display more info
         id="ajaxRequest"
         url="{{url}}"
         handle-as="json"
-        last-reponse="{{itemResponse}}"
         on-response="_handleReturnedData"></iron-ajax>
   </template>
 
@@ -362,7 +361,7 @@ that can pop up to display more info
          * Property to hold data returned from an endpoint
          */
         itemResponse: {
-          type: Object,
+          type: Object
         }
       },
       /**
@@ -370,7 +369,8 @@ that can pop up to display more info
        * the innerHTML of the response.
        */
       _handleReturnedData: function(e) {
-        this.$$('#dialogResponse').innerHTML = this.itemResponse.data;
+        this.itemResponse = event.detail.response.data;
+        this.$$('#dialogResponse').innerHTML = this.itemResponse;
       },
       _mouseEnter: function(e) {
         this.elevation += 1;
