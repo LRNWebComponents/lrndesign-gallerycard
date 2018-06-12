@@ -4,11 +4,8 @@
   "main": "lrndesign-gallerycard.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "lrnsys-behaviors": "LRNWebComponents/lrnsys-behaviors#^1.0.0",
-    "hax-behaviors": "LRNWebComponents/hax-behaviors#^0.0.6",
-    "materializecss-styles": "LRNWebComponents/materializecss-styles#^0.0.5",
-    "paper-card": "PolymerElements/paper-card#^1.1.6",
-    "google-webfont-loader": "printminion/google-webfont-loader#^1.6.27",
+    "materializecss-styles": "LRNWebComponents/materializecss-styles#^1.0.0",
+    "paper-card": "PolymerElements/paper-card#^2.1.0",
     "iron-icons": "PolymerElements/iron-icons#^1.2.1",
     "iron-image": "PolymerElements/iron-image#^1.2.6",
     "lrndesign-dialog": "LRNWebComponents/lrndesign-dialog#^0.0.1",
